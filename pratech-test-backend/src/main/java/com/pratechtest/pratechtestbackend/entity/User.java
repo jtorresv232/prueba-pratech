@@ -1,4 +1,4 @@
-package com.pratechtest.entity;
+package com.pratechtest.pratechtestbackend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

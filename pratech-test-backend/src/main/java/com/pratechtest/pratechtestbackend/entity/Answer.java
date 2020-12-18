@@ -1,4 +1,4 @@
-package com.pratechtest.entity;
+package com.pratechtest.pratechtestbackend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="answer")
@@ -21,13 +25,13 @@ public class Answer {
 	@Column
 	private String answer;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="question_id",referencedColumnName="id", nullable=true, insertable=true, updatable=true)
+	@OneToOne(mappedBy = "answer", fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@GsonExcludeProperty
 	private Question question;
 	
-	public Answer(int id, String answer, Question question) {
+	public Answer(String answer, Question question) {
 		super();
-		this.id = id;
 		this.answer = answer;
 		this.question = question;
 	}

@@ -1,5 +1,8 @@
-package com.pratechtest.entity;
+package com.pratechtest.pratechtestbackend.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 @Table(name="form")
@@ -21,9 +29,14 @@ public class Form {
 	@Column(nullable=false)
 	private String formName;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id",referencedColumnName="id", nullable=true, insertable=true, updatable=true)
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	@GsonExcludeProperty
 	private User user;
+	
+	@OneToMany(mappedBy = "formu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Set<Question> questions;
 	
 	
 
@@ -37,6 +50,25 @@ public class Form {
 	public Form() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
 	}
 
 	public int getId() {
