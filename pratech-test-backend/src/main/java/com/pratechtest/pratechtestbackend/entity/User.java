@@ -1,11 +1,16 @@
 package com.pratechtest.pratechtestbackend.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name="app_user")
@@ -23,6 +28,13 @@ public class User {
 	
 	@Column(nullable=false)
 	private String name;
+	
+	@ManyToMany
+	@JoinTable(
+	  name = "form_answered", 
+	  joinColumns = @JoinColumn(name = "user_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "form_id"))
+	private Set<Form> forms;
 	
 	
 	public User() {

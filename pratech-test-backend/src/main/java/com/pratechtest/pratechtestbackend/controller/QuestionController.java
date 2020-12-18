@@ -22,6 +22,11 @@ public class QuestionController {
 		return questionService.getAllByFormId(formid);
 	}
 	
+	@RequestMapping("/{formId}/{userid}")
+	public ResponseEntity<String> getQuestionsByFormIdAndUser(@PathVariable("formId") int formid, @PathVariable("userid") int userid) {
+		return questionService.getAllByFormIdAndUser(formid, userid);
+	}
+	
 	@RequestMapping(value = "/answer/{questionId}", method = RequestMethod.POST)
 	public ResponseEntity<String> answerQuestion(@RequestBody AddQuestionDTORequest question) {
 		return questionService.answerQuestion(question);

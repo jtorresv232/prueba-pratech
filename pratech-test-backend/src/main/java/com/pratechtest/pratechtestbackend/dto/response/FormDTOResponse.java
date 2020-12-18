@@ -10,15 +10,13 @@ import com.pratechtest.pratechtestbackend.entity.User;
 public class FormDTOResponse {
 	
 	private Integer id;
-	private User user_id;
 	private String name;
 	private Set<Question> questions;
 	
 	
-	public FormDTOResponse(Integer id, User user_id, String name, Set<Question> questions) {
+	public FormDTOResponse(Integer id, String name, Set<Question> questions) {
 		super();
 		this.id = id;
-		this.user_id = user_id;
 		this.name = name;
 		this.questions = questions;
 	}
@@ -32,17 +30,6 @@ public class FormDTOResponse {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
-	public User getUser_id() {
-		return user_id;
-	}
-
-
-	public void setUser_id(User user_id) {
-		this.user_id = user_id;
-	}
-
 
 	public String getName() {
 		return name;

@@ -31,7 +31,19 @@ public class QuestionService implements IQuestionService{
 		List<QuestionDTOResponse> questionsDTOList = new ArrayList<QuestionDTOResponse>();
 		QuestionDTOResponse questionDto;
 		for(Question foundQuestion : foundQuestions) {
-			questionDto = new QuestionDTOResponse(foundQuestion.getId(), foundQuestion.getQuestion(), foundQuestion.getType(), foundQuestion.getValidations(), foundQuestion.getAnswer());
+			questionDto = new QuestionDTOResponse(foundQuestion.getId(), foundQuestion.getQuestion(), foundQuestion.getType(), foundQuestion.getValidations());
+			questionsDTOList.add(questionDto);
+		}
+		return finalResponse.getResponse(questionsDTOList, httpHeaders, HttpStatus.OK).toResponseEntity();
+	}
+	
+	@Override
+	public ResponseEntity<String> getAllByFormIdAndUser(int formid, int userid) {
+		List<Question> foundQuestions = questionRepository.findByFormAndUser(formid, userid);
+		List<QuestionDTOResponse> questionsDTOList = new ArrayList<QuestionDTOResponse>();
+		QuestionDTOResponse questionDto;
+		for(Question foundQuestion : foundQuestions) {
+			questionDto = new QuestionDTOResponse(foundQuestion.getId(), foundQuestion.getQuestion(), foundQuestion.getType(), foundQuestion.getValidations(), foundQuestion.getAnswer().iterator().next());
 			questionsDTOList.add(questionDto);
 		}
 		return finalResponse.getResponse(questionsDTOList, httpHeaders, HttpStatus.OK).toResponseEntity();
@@ -45,7 +57,7 @@ public class QuestionService implements IQuestionService{
 		}
 		Question dbQuestion = questionFound.get();
 		Answer answer = new Answer(question.getAnswer(), dbQuestion);
-		dbQuestion.setAnswer(answer);
+		dbQuestion.getAnswer().add(answer);
 		
 		try {
 			questionRepository.save(dbQuestion);
@@ -54,5 +66,7 @@ public class QuestionService implements IQuestionService{
 		}
 		return finalResponse.getResponse("Se ha guardado la respuesta correctamente", httpHeaders, HttpStatus.OK).toResponseEntity();
 	}
+
+	
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -29,10 +30,9 @@ public class Form {
 	@Column(nullable=false)
 	private String formName;
 	
-	@ManyToOne
-	@JoinColumn(name="user_id")
+	@ManyToMany(mappedBy = "forms")
 	@GsonExcludeProperty
-	private User user;
+	private Set<User> users;
 	
 	@OneToMany(mappedBy = "formu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
@@ -40,11 +40,10 @@ public class Form {
 	
 	
 
-	public Form(int id, String formName, User userId) {
+	public Form(int id, String formName) {
 		super();
 		this.id = id;
 		this.formName = formName;
-		this.user = userId;
 	}
 
 	public Form() {
@@ -52,15 +51,13 @@ public class Form {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
 
-	public User getUser() {
-		return user;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 	public Set<Question> getQuestions() {
@@ -85,14 +82,6 @@ public class Form {
 
 	public void setFormName(String formName) {
 		this.formName = formName;
-	}
-
-	public User getUserId() {
-		return user;
-	}
-
-	public void setUserId(User userId) {
-		this.user = userId;
 	}
 	
 	

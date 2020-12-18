@@ -31,7 +31,7 @@ public class FormService implements IFormService{
 		List<FormDTOResponse> formsDTOList = new ArrayList<FormDTOResponse>();
 		FormDTOResponse formDTO;
 		for(Form formFound : formsFound) {
-			formDTO = new FormDTOResponse(formFound.getId(),formFound.getUserId(), formFound.getFormName(), formFound.getQuestions());
+			formDTO = new FormDTOResponse(formFound.getId(),formFound.getFormName(), formFound.getQuestions());
 			formsDTOList.add(formDTO);
 		}
 		return finalResponse.getResponse(formsDTOList, httpHeaders, HttpStatus.OK).toResponseEntity();

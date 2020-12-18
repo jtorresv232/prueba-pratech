@@ -43,10 +43,9 @@ public class Question {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Set<Validation> validations;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "answer_id", referencedColumnName = "id")
-	@GsonExcludeProperty
-	private Answer answer;
+	@OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Set<Answer> answer;
 
 	public Question() {
 		super();
@@ -112,13 +111,15 @@ public class Question {
 		this.validations = validations;
 	}
 
-	public Answer getAnswer() {
+	public Set<Answer> getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(Answer answer) {
+	public void setAnswer(Set<Answer> answer) {
 		this.answer = answer;
 	}
+
+	
 	
 	
 }

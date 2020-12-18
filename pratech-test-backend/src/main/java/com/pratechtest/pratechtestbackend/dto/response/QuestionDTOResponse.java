@@ -21,6 +21,14 @@ public class QuestionDTOResponse {
 		this.validations = validations;
 		this.answer = answer;
 	}
+	
+	public QuestionDTOResponse(int id, String question, String type, Set<Validation> validations) {
+		super();
+		this.id = id;
+		this.question = question;
+		this.type = type;
+		this.validations = validations;
+	}
 	public QuestionDTOResponse() {
 		super();
 		// TODO Auto-generated constructor stub
