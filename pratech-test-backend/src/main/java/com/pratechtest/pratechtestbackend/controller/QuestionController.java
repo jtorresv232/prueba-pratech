@@ -1,5 +1,7 @@
 package com.pratechtest.pratechtestbackend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,5 +34,15 @@ public class QuestionController {
 	@RequestMapping(value = "/answer/{questionId}", method = RequestMethod.POST)
 	public ResponseEntity<String> answerQuestion(@RequestBody AddQuestionDTORequest question) {
 		return questionService.answerQuestion(question);
+	}
+	
+	@RequestMapping(value = "/all/answer", method = RequestMethod.POST)
+	public ResponseEntity<String> answerAllQuestions(@RequestBody List<AddQuestionDTORequest> questions) {
+		return questionService.answerAllQuestions(questions);
+	}
+	
+	@RequestMapping("/byTry/{try}")
+	public ResponseEntity<String> getQuestionsByTry(@PathVariable("try") int tryid) {
+		return questionService.getAllByTry(tryid);
 	}
 }

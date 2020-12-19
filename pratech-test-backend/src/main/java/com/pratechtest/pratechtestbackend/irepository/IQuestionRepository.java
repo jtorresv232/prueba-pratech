@@ -18,4 +18,7 @@ public interface IQuestionRepository extends JpaRepository<Question, Integer>{
 	
 	@Query(nativeQuery=true, value="Select q.* from question q inner join answer a on a.question_id = q.id where a.user_id = :userid and q.form_id = :formid")
 	List<Question> findByFormAndUser(@Param("formid") int formId, @Param("userid") int id);
+	
+	@Query(nativeQuery=true, value="Select q.* from question q inner join answer a on a.question_id = q.id where a.try_id = :tryid order by a.id desc")
+	List<Question> findByTry(@Param("tryid") int tryid);
 }

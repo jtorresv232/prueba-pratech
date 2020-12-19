@@ -1,10 +1,7 @@
 package com.pratechtest.pratechtestbackend.dto.response;
 
-import java.util.List;
 import java.util.Set;
-
 import com.pratechtest.pratechtestbackend.entity.Question;
-import com.pratechtest.pratechtestbackend.entity.User;
 
 
 public class FormDTOResponse {

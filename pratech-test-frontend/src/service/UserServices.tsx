@@ -5,8 +5,13 @@ const login = (body: User) => {
     return httpBase.post('/user/login', body)
 }
 
+const signup = (body: User) => {
+    return httpBase.post('/user/signup', body)
+}
+
 const methods = {
-    login
+    login,
+    signup
 }
 
 export default methods;

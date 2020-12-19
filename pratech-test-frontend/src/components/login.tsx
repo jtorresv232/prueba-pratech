@@ -2,23 +2,27 @@ import React, { ReactElement } from 'react';
 import { withFormik, FormikProps, FormikErrors, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import userServices from '../service/UserServices';
+import SignupComponent from './signup';
+import { useHistory } from 'react-router-dom';
 
 interface FormValues {
     email: string,
     password: string
 }
 const LoginFormHtml = (props: FormikProps<FormValues>) => {
-    const { touched, errors, isSubmitting } = props;
+    const { touched, errors } = props;
     return (
-      <Form className="d-flex flex-column">
+      <Form className="d-flex flex-column mr-4">
         <h1>Inicia Sesión</h1>
+        <label>Correo electronico</label>
         <Field type="email" name="email" className="mt-3 form-control"/>
         {touched.email && errors.email && <div className="text-danger">{errors.email}</div>}
-  
+      
+        <label>Contraseña</label>
         <Field type="password" name="password" className="mt-3 form-control"/>
         {touched.password && errors.password && <div className="text-danger">{errors.password}</div>}
   
-        <button type="submit" disabled={isSubmitting} className="mt-3 btn btn-primary">
+        <button type="submit" className="mt-3 btn btn-primary">
           Submit
         </button>
       </Form>
@@ -51,9 +55,11 @@ const LoginFormHtml = (props: FormikProps<FormValues>) => {
       return errors;
     },
   
-    handleSubmit: values => {
-        userServices.login(values).then(res => {
+    handleSubmit: (values, bag) => {
+        const {history} = bag.props;
+        userServices.login({...values, name: ''}).then(res => {
             localStorage.setItem("pratech_id", res.data.data.id);
+            history.push('/list')
         }, error => {
                 alert("Contraseña o Correo equivocado");
         })
@@ -63,10 +69,13 @@ const LoginFormHtml = (props: FormikProps<FormValues>) => {
 
 const LoginComponent = (): ReactElement => {
 
+  let history = useHistory();
+  if(localStorage.getItem('pratech_id')) history.push('/list');
     return (
         <div className="d-flex w-100 h-100 align-items-center justify-content-center bg-primary">
-            <div className="d-flex flex-column p-3 bg-white z-depth-2 rounded">
-                <LoginForm></LoginForm>
+            <div className="d-flex p-3 bg-white z-depth-2 rounded flex-wrap">
+                <LoginForm history={history}></LoginForm>
+                <SignupComponent></SignupComponent>
             </div>
         </div>
     )

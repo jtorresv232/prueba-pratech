@@ -18,9 +18,14 @@ const post = (relativeUrl: string, bodyRequest: any) => {
     return axios.post(`${urlBase}${relativeUrl}`, bodyRequest, basicConfig);
 }
 
+const del = (relativeUrl: string) => {
+  return axios.post(`${urlBase}${relativeUrl}`, basicConfig);
+}
+
 const httpBase = {
     get,
-    post
+    post,
+    del
 }
 
 export default httpBase;

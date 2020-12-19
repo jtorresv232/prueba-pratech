@@ -30,4 +30,16 @@ public class UserService implements IUserService{
 		return finalResponse.getResponse(userFound.get(), responseHeaders, HttpStatus.OK).toResponseEntity();
 	}
 
+	@Override
+	public ResponseEntity<String> signup(User user) {
+		try {
+			System.out.println(user.getEmail() + user.getPassword());
+			userRepository.save(user);
+		} catch(Exception e) {
+			return finalResponse.getResponse("No se pudo crear el usuario, puede que el correo se encuentre en uso", responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR).toResponseEntity();
+		}
+		
+		return finalResponse.getResponse("El usuario ha sido creado exitosamente", responseHeaders, HttpStatus.OK).toResponseEntity();
+	}
+	
 }

@@ -20,4 +20,9 @@ public class UserController {
 	public ResponseEntity<String> login(@RequestBody User user) {
 		return userService.login(user.getEmail(), user.getPassword());
 	}
+	
+	@RequestMapping(value="/signup", method = RequestMethod.POST)
+	public ResponseEntity<String> signup(@RequestBody User user) {
+		return userService.signup(user);
+	}
 }

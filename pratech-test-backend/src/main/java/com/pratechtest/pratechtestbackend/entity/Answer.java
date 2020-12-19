@@ -27,12 +27,19 @@ public class Answer {
 	private Question question;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="try_id")
 	@GsonExcludeProperty
-	private User user;
+	private Try usertry;
 	
 	public Answer(String answer, Question question) {
 		super();
+		this.answer = answer;
+		this.question = question;
+	}
+	
+	public Answer(int id, String answer, Question question) {
+		super();
+		this.id = id;
 		this.answer = answer;
 		this.question = question;
 	}
@@ -65,6 +72,15 @@ public class Answer {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+
+	public Try getUsertry() {
+		return usertry;
+	}
+
+	public void setUsertry(Try usertry) {
+		this.usertry = usertry;
+	}
+	
 	
 	
 }
