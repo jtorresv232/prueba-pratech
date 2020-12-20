@@ -33,7 +33,6 @@ const RegisterList = (): ReactElement => {
         }
     }, [tries.length])
 
-    console.log(tries);
     return (
         <div className="d-flex w-100 h-100 flex-column">
             <div className="bg-primary text-white mb-5 text-center"><h2>Registros</h2></div>
@@ -73,7 +72,6 @@ const RegisterList = (): ReactElement => {
                                   }
                                   return 0;
                             }).map((question: FormQuestion) => {
-                                console.log(question.answer);
                                 return <td key={`a-${question.id}-${usertry.id}`}>{question.answer.answer}</td>
                             })
                             
